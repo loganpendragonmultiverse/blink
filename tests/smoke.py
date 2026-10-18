@@ -55,4 +55,6 @@ with tempfile.TemporaryDirectory() as directory:
   status,body,_=request(b,'/login')
   assert 'googletagmanager' not in body and 'lab-feedback.php' not in body
   print('PASS: fresh schema, registration, publish, formatting/escaping, cross-account denial, CSRF, comments and cascading deletion')
- finally:server.terminate();server.wait(timeout=10);log.close()
+ finally:
+  if 'db' in locals():db.close()
+  server.terminate();server.wait(timeout=10);log.close()
