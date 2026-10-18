@@ -1,8 +1,10 @@
 # Blink
 
-**Gold · v1.3.0 · released as-is.** Future features and maintenance are discretionary.
+**Gold · v1.3.0 · released as-is.** Future features and maintenance are optional.
 
-A self-hosted PHP/SQLite publishing app for useful text posts, formatting, public links, comments, profiles, category requests and approximate session view counts.
+Blink is a small publishing app you can host yourself. It supports formatted posts, public links, comments, profiles, category requests and approximate session view counts.
+
+I started Blink as a Forge lab and tried to market it. It wasn't gaining traction, and I didn't feel the idea justified the time it would take to keep pushing it. I decided to open-source it instead.
 
 ## Install
 
