@@ -1,6 +1,6 @@
 # Blink
 
-**Gold · v1.3.0 · released as-is.** Future features and maintenance are optional.
+**Gold · v1.3.1 · released as-is.** Future features and maintenance are optional.
 
 Blink is a small publishing app you can host yourself. It supports formatted posts, public links, comments, profiles, category requests and approximate session view counts.
 
