@@ -1,0 +1,65 @@
+diff --git a/.github/workflows/codeql.yml b/.github/workflows/codeql.yml
+index 6ff887c..c84857e 100644
+--- a/.github/workflows/codeql.yml
++++ b/.github/workflows/codeql.yml
+@@ -15,7 +15,7 @@ jobs:
+       contents: read
+     steps:
+       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+-      - uses: github/codeql-action/init@7999b86c43a865dc79d8923397f35af22de63401
++      - uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
+         with:
+           languages: javascript-typescript
+-      - uses: github/codeql-action/analyze@7999b86c43a865dc79d8923397f35af22de63401
++      - uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
+diff --git a/composer.lock b/composer.lock
+index 32db5eb..4ba17ca 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4243,16 +4243,16 @@
+         },
+         {
+             "name": "symfony/mime",
+-            "version": "v7.4.17",
++            "version": "v7.4.22",
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/symfony/mime.git",
+-                "reference": "bf328d82105831db3e409195db0540ff57f27c80"
++                "reference": "94a4c017435bc515f5ac80421a2c555fb9ca3676"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/mime/zipball/bf328d82105831db3e409195db0540ff57f27c80",
+-                "reference": "bf328d82105831db3e409195db0540ff57f27c80",
++                "url": "https://api.github.com/repos/symfony/mime/zipball/94a4c017435bc515f5ac80421a2c555fb9ca3676",
++                "reference": "94a4c017435bc515f5ac80421a2c555fb9ca3676",
+                 "shasum": ""
+             },
+             "require": {
+@@ -4308,7 +4308,7 @@
+                 "mime-type"
+             ],
+             "support": {
+-                "source": "https://github.com/symfony/mime/tree/v7.4.17"
++                "source": "https://github.com/symfony/mime/tree/v7.4.22"
+             },
+             "funding": [
+                 {
+@@ -4328,7 +4328,8 @@
+                     "type": "tidelift"
+                 }
+             ],
+-            "time": "2026-08-22T09:04:42+00:00"
++            "time": "2026-10-28T17:57:58+00:00",
++            "published-time": "2026-10-28T18:20:24+00:00"
+         },
+         {
+             "name": "symfony/polyfill-ctype",
+@@ -8510,5 +8511,5 @@
+     "platform-overrides": {
+         "php": "8.3.33"
+     },
+-    "plugin-api-version": "2.9.0"
++    "plugin-api-version": "2.11.0"
+ }

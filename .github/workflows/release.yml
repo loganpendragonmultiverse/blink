@@ -1,5 +1,5 @@
 {
-  "name": "Nonpublishing Windows dependency integrations",
+  "name": "Nonpublishing supported PHP integrations",
   "on": {
     "workflow_dispatch": {}
   },
@@ -7,23 +7,513 @@
     "contents": "read"
   },
   "jobs": {
-    "runtime_0": {
-      "runs-on": "windows-latest",
+    "integration": {
+      "runs-on": "${{ matrix.os }}",
       "timeout-minutes": 20,
       "strategy": {
         "fail-fast": false,
+        "max-parallel": 6,
         "matrix": {
-          "python": [
-            "3.11",
-            "3.14"
+          "include": [
+            {
+              "repository": "loganpendragonmultiverse/luminary-chat",
+              "slug": "luminary-chat",
+              "runtimeGroup": "331bd4d38f1eccd580fafdeed2e16cc5da1e498bf883bf1028f22f7f775d50df",
+              "sourceCases": [
+                1,
+                2,
+                3
+              ],
+              "head": "f9d3cb992cc4aa90aed80841237dc1229fefddd5",
+              "tree": "b1a7ec84322f12f7e5c80adb8161686eb97ba35f",
+              "patchFile": "luminary-chat-331bd4d38f1e.patch",
+              "patchSha256": "2be7b0a110dc122b4858556be687b4dc0a93a62001724e74b238778285c336f8",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "luminary-chat-331bd4d38f1e-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/luminary-chat",
+              "slug": "luminary-chat",
+              "runtimeGroup": "331bd4d38f1eccd580fafdeed2e16cc5da1e498bf883bf1028f22f7f775d50df",
+              "sourceCases": [
+                1,
+                2,
+                3
+              ],
+              "head": "f9d3cb992cc4aa90aed80841237dc1229fefddd5",
+              "tree": "b1a7ec84322f12f7e5c80adb8161686eb97ba35f",
+              "patchFile": "luminary-chat-331bd4d38f1e.patch",
+              "patchSha256": "2be7b0a110dc122b4858556be687b4dc0a93a62001724e74b238778285c336f8",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "luminary-chat-331bd4d38f1e-windows-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/luminary-chat",
+              "slug": "luminary-chat",
+              "runtimeGroup": "7c40472428a3f7afb5f7d48edf7a5d741dc961e719e7dd37c06945c152d17b61",
+              "sourceCases": [
+                4
+              ],
+              "head": "2d37ee655fc409362dc77b15e1866bf517d9c931",
+              "tree": "11d5503ec0f6b9a1f9ef2a72890350e8e66f8921",
+              "patchFile": "luminary-chat-7c40472428a3.patch",
+              "patchSha256": "bbe4ef4554c8569b87dfc60fb11056afdbf30d23bcac8d7bfcc390019e5be813",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "luminary-chat-7c40472428a3-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/luminary-chat",
+              "slug": "luminary-chat",
+              "runtimeGroup": "7c40472428a3f7afb5f7d48edf7a5d741dc961e719e7dd37c06945c152d17b61",
+              "sourceCases": [
+                4
+              ],
+              "head": "2d37ee655fc409362dc77b15e1866bf517d9c931",
+              "tree": "11d5503ec0f6b9a1f9ef2a72890350e8e66f8921",
+              "patchFile": "luminary-chat-7c40472428a3.patch",
+              "patchSha256": "bbe4ef4554c8569b87dfc60fb11056afdbf30d23bcac8d7bfcc390019e5be813",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "luminary-chat-7c40472428a3-windows-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/luminary-chat",
+              "slug": "luminary-chat",
+              "runtimeGroup": "5ea87c89c9bc195e449b8848a5010d81abfe06b48a0e437c564312c6ecb8059a",
+              "sourceCases": [
+                5
+              ],
+              "head": "57ec1540a9bc1f0a2cf9e25dd7342a5cb9b1003e",
+              "tree": "9c96fb24f6aa3e6f8d418950b9e36d25f764e04a",
+              "patchFile": "luminary-chat-5ea87c89c9bc.patch",
+              "patchSha256": "241f1fcec251562cb810065b8c027247f85548d1296a3da88a95fe156784bea4",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "luminary-chat-5ea87c89c9bc-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/luminary-chat",
+              "slug": "luminary-chat",
+              "runtimeGroup": "5ea87c89c9bc195e449b8848a5010d81abfe06b48a0e437c564312c6ecb8059a",
+              "sourceCases": [
+                5
+              ],
+              "head": "57ec1540a9bc1f0a2cf9e25dd7342a5cb9b1003e",
+              "tree": "9c96fb24f6aa3e6f8d418950b9e36d25f764e04a",
+              "patchFile": "luminary-chat-5ea87c89c9bc.patch",
+              "patchSha256": "241f1fcec251562cb810065b8c027247f85548d1296a3da88a95fe156784bea4",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "luminary-chat-5ea87c89c9bc-windows-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/luminary-chat",
+              "slug": "luminary-chat",
+              "runtimeGroup": "da78accfb3f31e8917bb48339bd378cc6c654663d6f7767f2bc802a8e8188218",
+              "sourceCases": [
+                8
+              ],
+              "head": "bf06812744284c9f4ff47a6197044e11e79a2d99",
+              "tree": "f1971391edfe4f2b27decd69ef81370d587cf838",
+              "patchFile": "luminary-chat-da78accfb3f3.patch",
+              "patchSha256": "c972fbd0ddfb3941b17da059da9300a888090bb4423e9a5106924e616cde0f4b",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "luminary-chat-da78accfb3f3-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/luminary-chat",
+              "slug": "luminary-chat",
+              "runtimeGroup": "da78accfb3f31e8917bb48339bd378cc6c654663d6f7767f2bc802a8e8188218",
+              "sourceCases": [
+                8
+              ],
+              "head": "bf06812744284c9f4ff47a6197044e11e79a2d99",
+              "tree": "f1971391edfe4f2b27decd69ef81370d587cf838",
+              "patchFile": "luminary-chat-da78accfb3f3.patch",
+              "patchSha256": "c972fbd0ddfb3941b17da059da9300a888090bb4423e9a5106924e616cde0f4b",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "luminary-chat-da78accfb3f3-windows-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/luminary-chat",
+              "slug": "luminary-chat",
+              "runtimeGroup": "b5ec20f6c1bf8a283fd9f151c2ec4ab03a639915b437be647eb6b77e6a2f06d2",
+              "sourceCases": [
+                16
+              ],
+              "head": "eaa0483686f729948b96e2a79debcd5b5e6ad200",
+              "tree": "d9e13172b8bf4b7f14af39f31938d11d89f4038f",
+              "patchFile": "luminary-chat-b5ec20f6c1bf.patch",
+              "patchSha256": "4935a074584f6e6929e384d86cf9972bfadac1645de3eba263a8658925b8507b",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "luminary-chat-b5ec20f6c1bf-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/luminary-chat",
+              "slug": "luminary-chat",
+              "runtimeGroup": "b5ec20f6c1bf8a283fd9f151c2ec4ab03a639915b437be647eb6b77e6a2f06d2",
+              "sourceCases": [
+                16
+              ],
+              "head": "eaa0483686f729948b96e2a79debcd5b5e6ad200",
+              "tree": "d9e13172b8bf4b7f14af39f31938d11d89f4038f",
+              "patchFile": "luminary-chat-b5ec20f6c1bf.patch",
+              "patchSha256": "4935a074584f6e6929e384d86cf9972bfadac1645de3eba263a8658925b8507b",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "luminary-chat-b5ec20f6c1bf-windows-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/marketing-bidding-central",
+              "slug": "marketing-bidding-central",
+              "runtimeGroup": "ffe29190c86815eac5cc4b6bdd37bcad5988fca7d5994015fdfc9503cf13a94f",
+              "sourceCases": [
+                2
+              ],
+              "head": "9aef96d426f3dd8ad481beba1ace0f27cdad99e0",
+              "tree": "a3018fd2b4435cce234ccdb5661c3717185ddf35",
+              "patchFile": "marketing-bidding-central-ffe29190c868.patch",
+              "patchSha256": "cc212a7cfd526a01f8900e671f9d403eb83f230b2f77629ae4086199e3c3cc4b",
+              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "marketing-bidding-central-ffe29190c868-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/marketing-bidding-central",
+              "slug": "marketing-bidding-central",
+              "runtimeGroup": "ffe29190c86815eac5cc4b6bdd37bcad5988fca7d5994015fdfc9503cf13a94f",
+              "sourceCases": [
+                2
+              ],
+              "head": "9aef96d426f3dd8ad481beba1ace0f27cdad99e0",
+              "tree": "a3018fd2b4435cce234ccdb5661c3717185ddf35",
+              "patchFile": "marketing-bidding-central-ffe29190c868.patch",
+              "patchSha256": "cc212a7cfd526a01f8900e671f9d403eb83f230b2f77629ae4086199e3c3cc4b",
+              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
+              "os": "ubuntu-latest",
+              "php": "8.4",
+              "caseKey": "marketing-bidding-central-ffe29190c868-ubuntu-latest-8.4"
+            },
+            {
+              "repository": "loganpendragonmultiverse/marketing-bidding-central",
+              "slug": "marketing-bidding-central",
+              "runtimeGroup": "a4e6caa57db657df25f989141fec0f1c86273d52462541687419b80fa939a5e7",
+              "sourceCases": [
+                3
+              ],
+              "head": "4c9da32fe05eb4560d47807c70f129d66c242830",
+              "tree": "183cdde8e67a800332fd03bd7b28075f79c9f1e3",
+              "patchFile": "marketing-bidding-central-a4e6caa57db6.patch",
+              "patchSha256": "8fd753731579ce1111d618bf002c3b73b28421dddeba263123d0689bb400ffb7",
+              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "marketing-bidding-central-a4e6caa57db6-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/marketing-bidding-central",
+              "slug": "marketing-bidding-central",
+              "runtimeGroup": "a4e6caa57db657df25f989141fec0f1c86273d52462541687419b80fa939a5e7",
+              "sourceCases": [
+                3
+              ],
+              "head": "4c9da32fe05eb4560d47807c70f129d66c242830",
+              "tree": "183cdde8e67a800332fd03bd7b28075f79c9f1e3",
+              "patchFile": "marketing-bidding-central-a4e6caa57db6.patch",
+              "patchSha256": "8fd753731579ce1111d618bf002c3b73b28421dddeba263123d0689bb400ffb7",
+              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
+              "os": "ubuntu-latest",
+              "php": "8.4",
+              "caseKey": "marketing-bidding-central-a4e6caa57db6-ubuntu-latest-8.4"
+            },
+            {
+              "repository": "loganpendragonmultiverse/marketing-bidding-central",
+              "slug": "marketing-bidding-central",
+              "runtimeGroup": "e851966924150edcdbbe437378723e02fb1b25d255b29bbed738df5e1aa204be",
+              "sourceCases": [
+                8
+              ],
+              "head": "474faa050d07af0447ff10c18ca733631cd9166a",
+              "tree": "942b663edcb463df1bed2b4c51cb08feb0f01035",
+              "patchFile": "marketing-bidding-central-e85196692415.patch",
+              "patchSha256": "bcbfad02dbebf2a76fad779eeaba0f1902f47132d6677dda1b232ef94f2391a5",
+              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "marketing-bidding-central-e85196692415-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/marketing-bidding-central",
+              "slug": "marketing-bidding-central",
+              "runtimeGroup": "e851966924150edcdbbe437378723e02fb1b25d255b29bbed738df5e1aa204be",
+              "sourceCases": [
+                8
+              ],
+              "head": "474faa050d07af0447ff10c18ca733631cd9166a",
+              "tree": "942b663edcb463df1bed2b4c51cb08feb0f01035",
+              "patchFile": "marketing-bidding-central-e85196692415.patch",
+              "patchSha256": "bcbfad02dbebf2a76fad779eeaba0f1902f47132d6677dda1b232ef94f2391a5",
+              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
+              "os": "ubuntu-latest",
+              "php": "8.4",
+              "caseKey": "marketing-bidding-central-e85196692415-ubuntu-latest-8.4"
+            },
+            {
+              "repository": "loganpendragonmultiverse/marketing-bidding-central",
+              "slug": "marketing-bidding-central",
+              "runtimeGroup": "dc2e59d2dd8c2d693a4a443399b75c1ae030362726363e86391563c149ca3de8",
+              "sourceCases": [
+                9
+              ],
+              "head": "872ec8dec62fcbe4695f80846a68bdaa9548b9d8",
+              "tree": "df8e4c35e313f45f0f9f5126c1e065c6039169d8",
+              "patchFile": "marketing-bidding-central-dc2e59d2dd8c.patch",
+              "patchSha256": "ee55d12c67e92659a75a544e5523dd358647c7773853f834ddf09acd34012b01",
+              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "marketing-bidding-central-dc2e59d2dd8c-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/marketing-bidding-central",
+              "slug": "marketing-bidding-central",
+              "runtimeGroup": "dc2e59d2dd8c2d693a4a443399b75c1ae030362726363e86391563c149ca3de8",
+              "sourceCases": [
+                9
+              ],
+              "head": "872ec8dec62fcbe4695f80846a68bdaa9548b9d8",
+              "tree": "df8e4c35e313f45f0f9f5126c1e065c6039169d8",
+              "patchFile": "marketing-bidding-central-dc2e59d2dd8c.patch",
+              "patchSha256": "ee55d12c67e92659a75a544e5523dd358647c7773853f834ddf09acd34012b01",
+              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
+              "os": "ubuntu-latest",
+              "php": "8.4",
+              "caseKey": "marketing-bidding-central-dc2e59d2dd8c-ubuntu-latest-8.4"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "26d9c9eded5391583ededddcfdc5ecba084bb226cb3632e03fc0e22d3137fd93",
+              "sourceCases": [
+                1,
+                2,
+                6
+              ],
+              "head": "a227325b7361fe9c4512926ec7b5a1d8e9e26eb4",
+              "tree": "1241a814df1face58ddc909e70e262607f471313",
+              "patchFile": "snap-finder-26d9c9eded53.patch",
+              "patchSha256": "feed3288c054cf05fd0f58c8fbbb357c0add8c5aefa978224e2ffeaa306a29fe",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-26d9c9eded53-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "26d9c9eded5391583ededddcfdc5ecba084bb226cb3632e03fc0e22d3137fd93",
+              "sourceCases": [
+                1,
+                2,
+                6
+              ],
+              "head": "a227325b7361fe9c4512926ec7b5a1d8e9e26eb4",
+              "tree": "1241a814df1face58ddc909e70e262607f471313",
+              "patchFile": "snap-finder-26d9c9eded53.patch",
+              "patchSha256": "feed3288c054cf05fd0f58c8fbbb357c0add8c5aefa978224e2ffeaa306a29fe",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-26d9c9eded53-windows-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "0acf92b9899677800ccc384dbc8b7f98264d8133696b6d42612eed38b584f412",
+              "sourceCases": [
+                4
+              ],
+              "head": "f389fe2393778974dabd69d7aee7515189a87d7a",
+              "tree": "e4a3490a45ba45d66b11b95330bf1b0742a4ab0c",
+              "patchFile": "snap-finder-0acf92b98996.patch",
+              "patchSha256": "1cbdf0d33b48651e2d7cc24ab1b5ab7181210e77f89a19fa8edd71d37b24be80",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-0acf92b98996-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "0acf92b9899677800ccc384dbc8b7f98264d8133696b6d42612eed38b584f412",
+              "sourceCases": [
+                4
+              ],
+              "head": "f389fe2393778974dabd69d7aee7515189a87d7a",
+              "tree": "e4a3490a45ba45d66b11b95330bf1b0742a4ab0c",
+              "patchFile": "snap-finder-0acf92b98996.patch",
+              "patchSha256": "1cbdf0d33b48651e2d7cc24ab1b5ab7181210e77f89a19fa8edd71d37b24be80",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-0acf92b98996-windows-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "d92ae3fde156a0fc216825723cb4cb6ce4299bc883a964e439c08d7326411fd8",
+              "sourceCases": [
+                5
+              ],
+              "head": "362f49e56a7949cc0599c52a037a427d7b223676",
+              "tree": "13223c65ed6fa89b42ccd99126ea59fd88de5935",
+              "patchFile": "snap-finder-d92ae3fde156.patch",
+              "patchSha256": "532bd2b3db632bd546891c315a162bf12a48eafe914c35438af00b1a315b70d0",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-d92ae3fde156-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "d92ae3fde156a0fc216825723cb4cb6ce4299bc883a964e439c08d7326411fd8",
+              "sourceCases": [
+                5
+              ],
+              "head": "362f49e56a7949cc0599c52a037a427d7b223676",
+              "tree": "13223c65ed6fa89b42ccd99126ea59fd88de5935",
+              "patchFile": "snap-finder-d92ae3fde156.patch",
+              "patchSha256": "532bd2b3db632bd546891c315a162bf12a48eafe914c35438af00b1a315b70d0",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-d92ae3fde156-windows-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "783688b45a146d8a8cfbb78593e090da4b32d09df240397e19955f2e880a4892",
+              "sourceCases": [
+                11
+              ],
+              "head": "dfa70395191ab3235eb8aaea13413f974e5c5482",
+              "tree": "2ec03259defd99f195b5aed094f85b3cdf110e59",
+              "patchFile": "snap-finder-783688b45a14.patch",
+              "patchSha256": "9aac11fe212e09b74a26056a63e793ef6c0b14cd61d33a3e58703e563465f738",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-783688b45a14-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "783688b45a146d8a8cfbb78593e090da4b32d09df240397e19955f2e880a4892",
+              "sourceCases": [
+                11
+              ],
+              "head": "dfa70395191ab3235eb8aaea13413f974e5c5482",
+              "tree": "2ec03259defd99f195b5aed094f85b3cdf110e59",
+              "patchFile": "snap-finder-783688b45a14.patch",
+              "patchSha256": "9aac11fe212e09b74a26056a63e793ef6c0b14cd61d33a3e58703e563465f738",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-783688b45a14-windows-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "12e91d9bbc1878bfcb153b3417ddf6acccc2eaa3934f3165dfa4bfa806cb9885",
+              "sourceCases": [
+                12
+              ],
+              "head": "27f2e6049cfe87bce64f8dc691b26ffee20981c6",
+              "tree": "926351fdef7d0af9a1b08e331f2865a4597e0812",
+              "patchFile": "snap-finder-12e91d9bbc18.patch",
+              "patchSha256": "bf1ada21c0a9446670b2e9159a65779f8e114c05d60a7d8ffed3499eec82b0de",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-12e91d9bbc18-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "12e91d9bbc1878bfcb153b3417ddf6acccc2eaa3934f3165dfa4bfa806cb9885",
+              "sourceCases": [
+                12
+              ],
+              "head": "27f2e6049cfe87bce64f8dc691b26ffee20981c6",
+              "tree": "926351fdef7d0af9a1b08e331f2865a4597e0812",
+              "patchFile": "snap-finder-12e91d9bbc18.patch",
+              "patchSha256": "bf1ada21c0a9446670b2e9159a65779f8e114c05d60a7d8ffed3499eec82b0de",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-12e91d9bbc18-windows-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "d02ee555fd9f4158a52a7b87a5d5bba654538d3b25a744c2989980927988a298",
+              "sourceCases": [
+                17
+              ],
+              "head": "2f2cefa86e861b43d7207621a8a81c5779829caf",
+              "tree": "4b72bd37380a9b7aa05ad7e4bbcbd30dd6838397",
+              "patchFile": "snap-finder-d02ee555fd9f.patch",
+              "patchSha256": "b8c974288ddc315d4d5c169455c122ccc396339028d43cd1d06c9279df41a2fa",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "ubuntu-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-d02ee555fd9f-ubuntu-latest-8.3"
+            },
+            {
+              "repository": "loganpendragonmultiverse/snap-finder",
+              "slug": "snap-finder",
+              "runtimeGroup": "d02ee555fd9f4158a52a7b87a5d5bba654538d3b25a744c2989980927988a298",
+              "sourceCases": [
+                17
+              ],
+              "head": "2f2cefa86e861b43d7207621a8a81c5779829caf",
+              "tree": "4b72bd37380a9b7aa05ad7e4bbcbd30dd6838397",
+              "patchFile": "snap-finder-d02ee555fd9f.patch",
+              "patchSha256": "b8c974288ddc315d4d5c169455c122ccc396339028d43cd1d06c9279df41a2fa",
+              "policy": "{\"php\":\"^8.3\",\"platform\":null}",
+              "os": "windows-latest",
+              "php": "8.3",
+              "caseKey": "snap-finder-d02ee555fd9f-windows-latest-8.3"
+            }
           ]
         }
       },
       "env": {
-        "EXPECTED_TREE": "05356dc06cb68ad6a7f54c7b3c91d43cbf1b9fac",
-        "SOURCE_HEAD": "16af11189e7c19851ab5c7a792db0bd5c87c2f9d",
-        "RUNTIME_GROUP": "cbecd84b6e3a98558fa6741ce900d45eb3dd859a3046449cfb868dae9e364319",
-        "PIP_PROGRESS_BAR": "off"
+        "EXPECTED_TREE": "${{ matrix.tree }}",
+        "SOURCE_HEAD": "${{ matrix.head }}",
+        "RUNTIME_GROUP": "${{ matrix.runtimeGroup }}",
+        "PATCH_FILE": "${{ matrix.patchFile }}",
+        "PATCH_SHA": "${{ matrix.patchSha256 }}",
+        "PHP_POLICY": "${{ matrix.policy }}",
+        "SOURCE_SLUG": "${{ matrix.slug }}"
       },
       "defaults": {
         "run": {
@@ -49,8 +539,8 @@
         {
           "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
           "with": {
-            "repository": "loganpendragonmultiverse/forge-pdf",
-            "ref": "16af11189e7c19851ab5c7a792db0bd5c87c2f9d",
+            "repository": "${{ matrix.repository }}",
+            "ref": "${{ matrix.head }}",
             "path": "source",
             "persist-credentials": false
           }
@@ -58,411 +548,40 @@
         {
           "uses": "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
           "with": {
-            "python-version": "${{ matrix.python }}"
+            "python-version": "3.12"
+          }
+        },
+        {
+          "uses": "shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+          "with": {
+            "php-version": "${{ matrix.php }}",
+            "extensions": "pdo_sqlite, mbstring, iconv, curl, dom, xml, fileinfo, gd",
+            "coverage": "none"
+          }
+        },
+        {
+          "uses": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "with": {
+            "node-version": "22"
           }
         },
         {
           "name": "Materialize and verify private integration tree",
-          "run": "python - <<'PY_TREE'\nimport pathlib,hashlib,subprocess,os,tomllib\np=pathlib.Path('../controller/.integration-fixtures/forge-pdf-cbecd84b6e3a.patch')\nassert hashlib.sha256(p.read_bytes()).hexdigest()=='32bc6703018f9a667bba3881632bab5564f3ec4a808786b2c206c11946ae9bcb'\nsubprocess.run(['git','config','core.autocrlf','false'],check=True)\nsubprocess.run(['git','apply','--cached','--check',str(p)],check=True)\nsubprocess.run(['git','apply','--cached',str(p)],check=True)\nactual=subprocess.check_output(['git','write-tree'],text=True).strip();assert actual==os.environ['EXPECTED_TREE'],actual\nsubprocess.run(['git','checkout-index','--all','--force'],check=True)\nassert tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['requires-python']=='>=3.11'\nassert 'pypdf==6.21.4' in pathlib.Path('requirements-lock.txt').read_text()\nprint('Verified exact private integration tree',actual)\nPY_TREE"
+          "run": "python - <<'PY_TREE'\nimport pathlib,hashlib,subprocess,os,json\np=pathlib.Path('../controller/.integration-fixtures')/os.environ['PATCH_FILE']\nassert hashlib.sha256(p.read_bytes()).hexdigest()==os.environ['PATCH_SHA']\nsubprocess.run(['git','config','core.autocrlf','false'],check=True)\nsubprocess.run(['git','apply','--cached','--check',str(p)],check=True)\nsubprocess.run(['git','apply','--cached',str(p)],check=True)\nactual=subprocess.check_output(['git','write-tree'],text=True).strip();assert actual==os.environ['EXPECTED_TREE'],actual\nsubprocess.run(['git','checkout-index','--all','--force'],check=True)\nc=json.loads(pathlib.Path('composer.json').read_text());assert {'php':c['require']['php'],'platform':c.get('config',{}).get('platform')}==json.loads(os.environ['PHP_POLICY'])\nprint('Verified exact private integration tree and unchanged PHP policy',actual)\nPY_TREE"
         },
         {
-          "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
+          "name": "Run synthetic supported-runtime integration gates",
           "env": {
-            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
-          }
-        },
-        {
-          "uses": "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
-          "if": "always()",
-          "with": {
-            "name": "pdf-integration-cbecd84b6e3a-${{ matrix.python }}",
-            "path": "${{ runner.temp }}/forge-pdf-integration.json",
-            "if-no-files-found": "error",
-            "retention-days": 1
-          }
-        }
-      ]
-    },
-    "runtime_1": {
-      "runs-on": "windows-latest",
-      "timeout-minutes": 20,
-      "strategy": {
-        "fail-fast": false,
-        "matrix": {
-          "python": [
-            "3.11",
-            "3.14"
-          ]
-        }
-      },
-      "env": {
-        "EXPECTED_TREE": "ed412a3cfac05ab19d4ac4cd6659578d520b0c6c",
-        "SOURCE_HEAD": "3030ff682f014c8e2b6924abac344989b7450c47",
-        "RUNTIME_GROUP": "a64a36184f43febbba390f6641e0dd9b3f4956ce101cd51ad88a673affa61d78",
-        "PIP_PROGRESS_BAR": "off"
-      },
-      "defaults": {
-        "run": {
-          "shell": "bash",
-          "working-directory": "source"
-        }
-      },
-      "steps": [
-        {
-          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "with": {
-            "repository": "loganpendragonmultiverse/blink",
-            "ref": "${{ github.sha }}",
-            "path": "controller",
-            "persist-credentials": false
-          }
-        },
-        {
-          "name": "Assert nonpublishing fixture branch",
-          "working-directory": "controller",
-          "run": "test \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102\ntest \"$GITHUB_EVENT_NAME\" = workflow_dispatch"
-        },
-        {
-          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "with": {
-            "repository": "loganpendragonmultiverse/forge-pdf",
-            "ref": "3030ff682f014c8e2b6924abac344989b7450c47",
-            "path": "source",
-            "persist-credentials": false
-          }
-        },
-        {
-          "uses": "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
-          "with": {
-            "python-version": "${{ matrix.python }}"
-          }
-        },
-        {
-          "name": "Materialize and verify private integration tree",
-          "run": "python - <<'PY_TREE'\nimport pathlib,hashlib,subprocess,os,tomllib\np=pathlib.Path('../controller/.integration-fixtures/forge-pdf-a64a36184f43.patch')\nassert hashlib.sha256(p.read_bytes()).hexdigest()=='a0fcd564277df49bc5024b38786ce0df9afba68a3ada4fe4aac19bff0bd2798a'\nsubprocess.run(['git','config','core.autocrlf','false'],check=True)\nsubprocess.run(['git','apply','--cached','--check',str(p)],check=True)\nsubprocess.run(['git','apply','--cached',str(p)],check=True)\nactual=subprocess.check_output(['git','write-tree'],text=True).strip();assert actual==os.environ['EXPECTED_TREE'],actual\nsubprocess.run(['git','checkout-index','--all','--force'],check=True)\nassert tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['requires-python']=='>=3.11'\nassert 'pypdf==6.21.4' in pathlib.Path('requirements-lock.txt').read_text()\nprint('Verified exact private integration tree',actual)\nPY_TREE"
-        },
-        {
-          "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
-          "env": {
-            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
-          }
+            "EVIDENCE_PATH": "${{ runner.temp }}/php-integration.json"
+          },
+          "run": "python - <<'PY_GATES'\nimport os,subprocess,pathlib,json,shutil\nfor n in ['storage/app/private','storage/app/public','storage/framework/cache/data','storage/framework/sessions','storage/framework/views','storage/logs','bootstrap/cache']:pathlib.Path(n).mkdir(parents=True,exist_ok=True)\nshutil.copyfile('.env.example','.env')\nif os.environ['SOURCE_SLUG']=='marketing-bidding-central':\n commands=[('composer-install','composer install --no-interaction --prefer-dist --no-progress'),('validate','composer validate --strict --no-check-version'),('lint','php vendor/bin/pint --test'),('full-php-tests','php artisan test --no-ansi'),('dependency-audit','composer audit --locked'),('source-readiness','python scripts/audit-release.py'),('source-package','python scripts/package-release.py')]\nelse:commands=[('fresh-install','php install.php'),('full-php-tests','php artisan test --no-ansi'),('composer-audit','composer audit --locked'),('npm-audit','npm audit')]\nresults=[]\nfor name,cmd in commands:\n p=subprocess.run(cmd,shell=True,capture_output=True,text=True,encoding='utf-8',errors='replace');print('GATE',name,'EXIT',p.returncode,flush=True);print(p.stdout,flush=True);print(p.stderr,flush=True);results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-7000:]})\n if name in ['composer-install','fresh-install'] and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'php':subprocess.check_output('php --version',shell=True,text=True).splitlines()[0],'results':results,'all_passed':len(results)==len(commands) and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2));assert payload['all_passed'],json.dumps(payload)\nPY_GATES"
         },
         {
           "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
           "if": "always()",
           "with": {
-            "name": "pdf-integration-a64a36184f43-${{ matrix.python }}",
-            "path": "${{ runner.temp }}/forge-pdf-integration.json",
-            "if-no-files-found": "error",
-            "retention-days": 1
-          }
-        }
-      ]
-    },
-    "runtime_2": {
-      "runs-on": "windows-latest",
-      "timeout-minutes": 20,
-      "strategy": {
-        "fail-fast": false,
-        "matrix": {
-          "python": [
-            "3.11",
-            "3.14"
-          ]
-        }
-      },
-      "env": {
-        "EXPECTED_TREE": "f729c7711138286eabe915a0c178faf1efe0c9ee",
-        "SOURCE_HEAD": "f5beb633e7e813b5dcf59e7d826d5b752671f0e0",
-        "RUNTIME_GROUP": "5e1978e467a38a8e6770e9a0d4d13839973c95924a931567ae911b75730a70b9",
-        "PIP_PROGRESS_BAR": "off"
-      },
-      "defaults": {
-        "run": {
-          "shell": "bash",
-          "working-directory": "source"
-        }
-      },
-      "steps": [
-        {
-          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "with": {
-            "repository": "loganpendragonmultiverse/blink",
-            "ref": "${{ github.sha }}",
-            "path": "controller",
-            "persist-credentials": false
-          }
-        },
-        {
-          "name": "Assert nonpublishing fixture branch",
-          "working-directory": "controller",
-          "run": "test \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102\ntest \"$GITHUB_EVENT_NAME\" = workflow_dispatch"
-        },
-        {
-          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "with": {
-            "repository": "loganpendragonmultiverse/forge-pdf",
-            "ref": "f5beb633e7e813b5dcf59e7d826d5b752671f0e0",
-            "path": "source",
-            "persist-credentials": false
-          }
-        },
-        {
-          "uses": "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
-          "with": {
-            "python-version": "${{ matrix.python }}"
-          }
-        },
-        {
-          "name": "Materialize and verify private integration tree",
-          "run": "python - <<'PY_TREE'\nimport pathlib,hashlib,subprocess,os,tomllib\np=pathlib.Path('../controller/.integration-fixtures/forge-pdf-5e1978e467a3.patch')\nassert hashlib.sha256(p.read_bytes()).hexdigest()=='16c63233cc5c631a479f80926e61ea603e47046f95533d59fd3730f76f975349'\nsubprocess.run(['git','config','core.autocrlf','false'],check=True)\nsubprocess.run(['git','apply','--cached','--check',str(p)],check=True)\nsubprocess.run(['git','apply','--cached',str(p)],check=True)\nactual=subprocess.check_output(['git','write-tree'],text=True).strip();assert actual==os.environ['EXPECTED_TREE'],actual\nsubprocess.run(['git','checkout-index','--all','--force'],check=True)\nassert tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['requires-python']=='>=3.11'\nassert 'pypdf==6.21.4' in pathlib.Path('requirements-lock.txt').read_text()\nprint('Verified exact private integration tree',actual)\nPY_TREE"
-        },
-        {
-          "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
-          "env": {
-            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
-          }
-        },
-        {
-          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
-          "if": "always()",
-          "with": {
-            "name": "pdf-integration-5e1978e467a3-${{ matrix.python }}",
-            "path": "${{ runner.temp }}/forge-pdf-integration.json",
-            "if-no-files-found": "error",
-            "retention-days": 1
-          }
-        }
-      ]
-    },
-    "runtime_3": {
-      "runs-on": "windows-latest",
-      "timeout-minutes": 20,
-      "strategy": {
-        "fail-fast": false,
-        "matrix": {
-          "python": [
-            "3.11",
-            "3.14"
-          ]
-        }
-      },
-      "env": {
-        "EXPECTED_TREE": "c14a3ef93000777c7edf7cdf007813a7b2ba64aa",
-        "SOURCE_HEAD": "1f63bd79337a00b5a583129339dcfc778c8038a9",
-        "RUNTIME_GROUP": "ee6b216646f7c57cb7b3b3b89a7231a7f522faa4c1d41e60be3a24b6b530db9e",
-        "PIP_PROGRESS_BAR": "off"
-      },
-      "defaults": {
-        "run": {
-          "shell": "bash",
-          "working-directory": "source"
-        }
-      },
-      "steps": [
-        {
-          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "with": {
-            "repository": "loganpendragonmultiverse/blink",
-            "ref": "${{ github.sha }}",
-            "path": "controller",
-            "persist-credentials": false
-          }
-        },
-        {
-          "name": "Assert nonpublishing fixture branch",
-          "working-directory": "controller",
-          "run": "test \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102\ntest \"$GITHUB_EVENT_NAME\" = workflow_dispatch"
-        },
-        {
-          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "with": {
-            "repository": "loganpendragonmultiverse/forge-pdf",
-            "ref": "1f63bd79337a00b5a583129339dcfc778c8038a9",
-            "path": "source",
-            "persist-credentials": false
-          }
-        },
-        {
-          "uses": "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
-          "with": {
-            "python-version": "${{ matrix.python }}"
-          }
-        },
-        {
-          "name": "Materialize and verify private integration tree",
-          "run": "python - <<'PY_TREE'\nimport pathlib,hashlib,subprocess,os,tomllib\np=pathlib.Path('../controller/.integration-fixtures/forge-pdf-ee6b216646f7.patch')\nassert hashlib.sha256(p.read_bytes()).hexdigest()=='07d0d786a5186bf9ff571479310bdc2c17f7d55ac6e8e79ee589a07cbc29d34f'\nsubprocess.run(['git','config','core.autocrlf','false'],check=True)\nsubprocess.run(['git','apply','--cached','--check',str(p)],check=True)\nsubprocess.run(['git','apply','--cached',str(p)],check=True)\nactual=subprocess.check_output(['git','write-tree'],text=True).strip();assert actual==os.environ['EXPECTED_TREE'],actual\nsubprocess.run(['git','checkout-index','--all','--force'],check=True)\nassert tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['requires-python']=='>=3.11'\nassert 'pypdf==6.21.4' in pathlib.Path('requirements-lock.txt').read_text()\nprint('Verified exact private integration tree',actual)\nPY_TREE"
-        },
-        {
-          "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
-          "env": {
-            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
-          }
-        },
-        {
-          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
-          "if": "always()",
-          "with": {
-            "name": "pdf-integration-ee6b216646f7-${{ matrix.python }}",
-            "path": "${{ runner.temp }}/forge-pdf-integration.json",
-            "if-no-files-found": "error",
-            "retention-days": 1
-          }
-        }
-      ]
-    },
-    "runtime_4": {
-      "runs-on": "windows-latest",
-      "timeout-minutes": 20,
-      "strategy": {
-        "fail-fast": false,
-        "matrix": {
-          "python": [
-            "3.11",
-            "3.14"
-          ]
-        }
-      },
-      "env": {
-        "EXPECTED_TREE": "dd0c772524acece28376e42e38e809d797a9ae85",
-        "SOURCE_HEAD": "df62a71c5b031d6c2dd22b3a8bd0835c43cdd293",
-        "RUNTIME_GROUP": "03c6a132556c8f2820ac2fc76c02afb182b42b7738aafedc015c4ca73df954c2",
-        "PIP_PROGRESS_BAR": "off"
-      },
-      "defaults": {
-        "run": {
-          "shell": "bash",
-          "working-directory": "source"
-        }
-      },
-      "steps": [
-        {
-          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "with": {
-            "repository": "loganpendragonmultiverse/blink",
-            "ref": "${{ github.sha }}",
-            "path": "controller",
-            "persist-credentials": false
-          }
-        },
-        {
-          "name": "Assert nonpublishing fixture branch",
-          "working-directory": "controller",
-          "run": "test \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102\ntest \"$GITHUB_EVENT_NAME\" = workflow_dispatch"
-        },
-        {
-          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "with": {
-            "repository": "loganpendragonmultiverse/forge-pdf",
-            "ref": "df62a71c5b031d6c2dd22b3a8bd0835c43cdd293",
-            "path": "source",
-            "persist-credentials": false
-          }
-        },
-        {
-          "uses": "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
-          "with": {
-            "python-version": "${{ matrix.python }}"
-          }
-        },
-        {
-          "name": "Materialize and verify private integration tree",
-          "run": "python - <<'PY_TREE'\nimport pathlib,hashlib,subprocess,os,tomllib\np=pathlib.Path('../controller/.integration-fixtures/forge-pdf-03c6a132556c.patch')\nassert hashlib.sha256(p.read_bytes()).hexdigest()=='476f4245e89b32cff15594e6a7a1aff8125818cd8a3f6644dd438bc65bbb8ce7'\nsubprocess.run(['git','config','core.autocrlf','false'],check=True)\nsubprocess.run(['git','apply','--cached','--check',str(p)],check=True)\nsubprocess.run(['git','apply','--cached',str(p)],check=True)\nactual=subprocess.check_output(['git','write-tree'],text=True).strip();assert actual==os.environ['EXPECTED_TREE'],actual\nsubprocess.run(['git','checkout-index','--all','--force'],check=True)\nassert tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['requires-python']=='>=3.11'\nassert 'pypdf==6.21.4' in pathlib.Path('requirements-lock.txt').read_text()\nprint('Verified exact private integration tree',actual)\nPY_TREE"
-        },
-        {
-          "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
-          "env": {
-            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
-          }
-        },
-        {
-          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
-          "if": "always()",
-          "with": {
-            "name": "pdf-integration-03c6a132556c-${{ matrix.python }}",
-            "path": "${{ runner.temp }}/forge-pdf-integration.json",
-            "if-no-files-found": "error",
-            "retention-days": 1
-          }
-        }
-      ]
-    },
-    "runtime_5": {
-      "runs-on": "windows-latest",
-      "timeout-minutes": 20,
-      "strategy": {
-        "fail-fast": false,
-        "matrix": {
-          "python": [
-            "3.11",
-            "3.14"
-          ]
-        }
-      },
-      "env": {
-        "EXPECTED_TREE": "9d4bbe9f2b57f2710ab3fb18e7641c01e9d2a3b1",
-        "SOURCE_HEAD": "20eb4d3b570cc3debfca040a74c40c757656aa42",
-        "RUNTIME_GROUP": "ca9c053e54b0bd9f503c88b595b1bcc0a48d9530aef26b8131ea7a2eeb96dcff",
-        "PIP_PROGRESS_BAR": "off"
-      },
-      "defaults": {
-        "run": {
-          "shell": "bash",
-          "working-directory": "source"
-        }
-      },
-      "steps": [
-        {
-          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "with": {
-            "repository": "loganpendragonmultiverse/blink",
-            "ref": "${{ github.sha }}",
-            "path": "controller",
-            "persist-credentials": false
-          }
-        },
-        {
-          "name": "Assert nonpublishing fixture branch",
-          "working-directory": "controller",
-          "run": "test \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102\ntest \"$GITHUB_EVENT_NAME\" = workflow_dispatch"
-        },
-        {
-          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-          "with": {
-            "repository": "loganpendragonmultiverse/forge-pdf",
-            "ref": "20eb4d3b570cc3debfca040a74c40c757656aa42",
-            "path": "source",
-            "persist-credentials": false
-          }
-        },
-        {
-          "uses": "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97",
-          "with": {
-            "python-version": "${{ matrix.python }}"
-          }
-        },
-        {
-          "name": "Materialize and verify private integration tree",
-          "run": "python - <<'PY_TREE'\nimport pathlib,hashlib,subprocess,os,tomllib\np=pathlib.Path('../controller/.integration-fixtures/forge-pdf-ca9c053e54b0.patch')\nassert hashlib.sha256(p.read_bytes()).hexdigest()=='cfaee63d6a44d65c10a1000d0223da0f9e4dfdb012b13fcf33c7def1a0d90b6b'\nsubprocess.run(['git','config','core.autocrlf','false'],check=True)\nsubprocess.run(['git','apply','--cached','--check',str(p)],check=True)\nsubprocess.run(['git','apply','--cached',str(p)],check=True)\nactual=subprocess.check_output(['git','write-tree'],text=True).strip();assert actual==os.environ['EXPECTED_TREE'],actual\nsubprocess.run(['git','checkout-index','--all','--force'],check=True)\nassert tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['requires-python']=='>=3.11'\nassert 'pypdf==6.21.4' in pathlib.Path('requirements-lock.txt').read_text()\nprint('Verified exact private integration tree',actual)\nPY_TREE"
-        },
-        {
-          "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
-          "env": {
-            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
-          }
-        },
-        {
-          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
-          "if": "always()",
-          "with": {
-            "name": "pdf-integration-ca9c053e54b0-${{ matrix.python }}",
-            "path": "${{ runner.temp }}/forge-pdf-integration.json",
+            "name": "${{ matrix.caseKey }}",
+            "path": "${{ runner.temp }}/php-integration.json",
             "if-no-files-found": "error",
             "retention-days": 1
           }

@@ -1,2 +1,2 @@
 
-.integration-fixtures/*.patch -text
+.integration-fixtures/*.patch binary

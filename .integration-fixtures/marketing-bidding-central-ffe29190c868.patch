@@ -1,0 +1,90 @@
+diff --git a/.github/workflows/codeql.yml b/.github/workflows/codeql.yml
+index 6ff887c..c84857e 100644
+--- a/.github/workflows/codeql.yml
++++ b/.github/workflows/codeql.yml
+@@ -15,7 +15,7 @@ jobs:
+       contents: read
+     steps:
+       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+-      - uses: github/codeql-action/init@7999b86c43a865dc79d8923397f35af22de63401
++      - uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
+         with:
+           languages: javascript-typescript
+-      - uses: github/codeql-action/analyze@7999b86c43a865dc79d8923397f35af22de63401
++      - uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
+diff --git a/README.md b/README.md
+index aab3b00..8792045 100644
+--- a/README.md
++++ b/README.md
+@@ -91,3 +91,7 @@ payment-provider IDs, or provider payloads are included.
+ This is an inspection export, not an accounting report. It does not contact providers, send mail,
+ perform payments or refunds, or write ledger records. Concurrent updates to existing rows can
+ appear during streaming; the export is not a transactional accounting snapshot.
++
++## As-is distribution scope
++
++This project is distributed as-is under the MIT License. Its Forge Gold classification applies to the reviewed v1.1.0 source distribution, documented installation handoff, closed payment gates and synthetic release checks. Future maintenance and features are discretionary. It does not certify production readiness for a particular operator or live Stripe, SMTP, MySQL, hosting or legal-policy acceptance. Before live use, complete the operator checks in [TESTING.md](TESTING.md) and [INSTALLATION.md](INSTALLATION.md). The published v1.1.0 archive remains unchanged; this clarification is a later documentation update on the repository.
+diff --git a/SECURITY.md b/SECURITY.md
+index 2e12b8e..8ce4e12 100644
+--- a/SECURITY.md
++++ b/SECURITY.md
+@@ -2,7 +2,7 @@
+ 
+ Report vulnerabilities privately through this repository's Security > Report a vulnerability. Do not publish credentials, customer details, private management links, payment payloads or exploit data in public issues.
+ 
+-Only 1.0.x is currently released. Use the latest patch release and review security notices.
++The latest published release is 1.1.0. Use the latest published patch and review security notices. This is an as-is source distribution under the MIT License; future maintenance and features are discretionary. Its Forge Gold classification describes the reviewed distribution scope and does not certify an operator's deployment or live providers.
+ 
+ Sensitive boundaries: Stripe signing secrets, APP_KEY and encrypted fields, administrator password hash, customer email codes, bearer management tokens, server-side URL fetching, private contact messages and release artifact contents. Keep public/ as the sole web root and payment gates closed until the operator is ready.
+ 
+diff --git a/composer.lock b/composer.lock
+index ec7bf54..9ec8cd5 100644
+--- a/composer.lock
++++ b/composer.lock
+@@ -4243,16 +4243,16 @@
+         },
+         {
+             "name": "symfony/mime",
+-            "version": "v7.4.17",
++            "version": "v7.4.22",
+             "source": {
+                 "type": "git",
+                 "url": "https://github.com/symfony/mime.git",
+-                "reference": "bf328d82105831db3e409195db0540ff57f27c80"
++                "reference": "94a4c017435bc515f5ac80421a2c555fb9ca3676"
+             },
+             "dist": {
+                 "type": "zip",
+-                "url": "https://api.github.com/repos/symfony/mime/zipball/bf328d82105831db3e409195db0540ff57f27c80",
+-                "reference": "bf328d82105831db3e409195db0540ff57f27c80",
++                "url": "https://api.github.com/repos/symfony/mime/zipball/94a4c017435bc515f5ac80421a2c555fb9ca3676",
++                "reference": "94a4c017435bc515f5ac80421a2c555fb9ca3676",
+                 "shasum": ""
+             },
+             "require": {
+@@ -4308,7 +4308,7 @@
+                 "mime-type"
+             ],
+             "support": {
+-                "source": "https://github.com/symfony/mime/tree/v7.4.17"
++                "source": "https://github.com/symfony/mime/tree/v7.4.22"
+             },
+             "funding": [
+                 {
+@@ -4328,7 +4328,8 @@
+                     "type": "tidelift"
+                 }
+             ],
+-            "time": "2026-08-22T09:04:42+00:00"
++            "time": "2026-10-28T17:57:58+00:00",
++            "published-time": "2026-10-28T18:20:24+00:00"
+         },
+         {
+             "name": "symfony/polyfill-ctype",
+@@ -8510,5 +8511,5 @@
+     "platform-overrides": {
+         "php": "8.3.33"
+     },
+-    "plugin-api-version": "2.9.0"
++    "plugin-api-version": "2.11.0"
+ }
