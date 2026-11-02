@@ -23,7 +23,6 @@
         "EXPECTED_TREE": "05356dc06cb68ad6a7f54c7b3c91d43cbf1b9fac",
         "SOURCE_HEAD": "16af11189e7c19851ab5c7a792db0bd5c87c2f9d",
         "RUNTIME_GROUP": "cbecd84b6e3a98558fa6741ce900d45eb3dd859a3046449cfb868dae9e364319",
-        "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json",
         "PIP_PROGRESS_BAR": "off"
       },
       "defaults": {
@@ -68,14 +67,17 @@
         },
         {
           "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES"
+          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
+          "env": {
+            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
+          }
         },
         {
           "uses": "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
           "if": "always()",
           "with": {
             "name": "pdf-integration-cbecd84b6e3a-${{ matrix.python }}",
-            "path": "${{ env.EVIDENCE_PATH }}",
+            "path": "${{ runner.temp }}/forge-pdf-integration.json",
             "if-no-files-found": "error",
             "retention-days": 1
           }
@@ -98,7 +100,6 @@
         "EXPECTED_TREE": "ed412a3cfac05ab19d4ac4cd6659578d520b0c6c",
         "SOURCE_HEAD": "3030ff682f014c8e2b6924abac344989b7450c47",
         "RUNTIME_GROUP": "a64a36184f43febbba390f6641e0dd9b3f4956ce101cd51ad88a673affa61d78",
-        "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json",
         "PIP_PROGRESS_BAR": "off"
       },
       "defaults": {
@@ -143,14 +144,17 @@
         },
         {
           "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES"
+          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
+          "env": {
+            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
+          }
         },
         {
           "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
           "if": "always()",
           "with": {
             "name": "pdf-integration-a64a36184f43-${{ matrix.python }}",
-            "path": "${{ env.EVIDENCE_PATH }}",
+            "path": "${{ runner.temp }}/forge-pdf-integration.json",
             "if-no-files-found": "error",
             "retention-days": 1
           }
@@ -173,7 +177,6 @@
         "EXPECTED_TREE": "f729c7711138286eabe915a0c178faf1efe0c9ee",
         "SOURCE_HEAD": "f5beb633e7e813b5dcf59e7d826d5b752671f0e0",
         "RUNTIME_GROUP": "5e1978e467a38a8e6770e9a0d4d13839973c95924a931567ae911b75730a70b9",
-        "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json",
         "PIP_PROGRESS_BAR": "off"
       },
       "defaults": {
@@ -218,14 +221,17 @@
         },
         {
           "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES"
+          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
+          "env": {
+            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
+          }
         },
         {
           "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
           "if": "always()",
           "with": {
             "name": "pdf-integration-5e1978e467a3-${{ matrix.python }}",
-            "path": "${{ env.EVIDENCE_PATH }}",
+            "path": "${{ runner.temp }}/forge-pdf-integration.json",
             "if-no-files-found": "error",
             "retention-days": 1
           }
@@ -248,7 +254,6 @@
         "EXPECTED_TREE": "c14a3ef93000777c7edf7cdf007813a7b2ba64aa",
         "SOURCE_HEAD": "1f63bd79337a00b5a583129339dcfc778c8038a9",
         "RUNTIME_GROUP": "ee6b216646f7c57cb7b3b3b89a7231a7f522faa4c1d41e60be3a24b6b530db9e",
-        "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json",
         "PIP_PROGRESS_BAR": "off"
       },
       "defaults": {
@@ -293,14 +298,17 @@
         },
         {
           "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES"
+          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
+          "env": {
+            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
+          }
         },
         {
           "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
           "if": "always()",
           "with": {
             "name": "pdf-integration-ee6b216646f7-${{ matrix.python }}",
-            "path": "${{ env.EVIDENCE_PATH }}",
+            "path": "${{ runner.temp }}/forge-pdf-integration.json",
             "if-no-files-found": "error",
             "retention-days": 1
           }
@@ -323,7 +331,6 @@
         "EXPECTED_TREE": "dd0c772524acece28376e42e38e809d797a9ae85",
         "SOURCE_HEAD": "df62a71c5b031d6c2dd22b3a8bd0835c43cdd293",
         "RUNTIME_GROUP": "03c6a132556c8f2820ac2fc76c02afb182b42b7738aafedc015c4ca73df954c2",
-        "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json",
         "PIP_PROGRESS_BAR": "off"
       },
       "defaults": {
@@ -368,14 +375,17 @@
         },
         {
           "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES"
+          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
+          "env": {
+            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
+          }
         },
         {
           "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
           "if": "always()",
           "with": {
             "name": "pdf-integration-03c6a132556c-${{ matrix.python }}",
-            "path": "${{ env.EVIDENCE_PATH }}",
+            "path": "${{ runner.temp }}/forge-pdf-integration.json",
             "if-no-files-found": "error",
             "retention-days": 1
           }
@@ -398,7 +408,6 @@
         "EXPECTED_TREE": "9d4bbe9f2b57f2710ab3fb18e7641c01e9d2a3b1",
         "SOURCE_HEAD": "20eb4d3b570cc3debfca040a74c40c757656aa42",
         "RUNTIME_GROUP": "ca9c053e54b0bd9f503c88b595b1bcc0a48d9530aef26b8131ea7a2eeb96dcff",
-        "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json",
         "PIP_PROGRESS_BAR": "off"
       },
       "defaults": {
@@ -443,14 +452,17 @@
         },
         {
           "name": "Run original Windows quality and dependency gates",
-          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES"
+          "run": "python - <<'PY_GATES'\nimport subprocess,json,pathlib,os,hashlib\ncommands=[\n('install',['python','-m','pip','install','-r','requirements-lock.txt','-e','.[dev]']),\n('full-windows-pytest',['python','-m','pytest','-q']),\n('lint',['python','-m','ruff','check','.']),\n('format',['python','-m','ruff','format','--check','.']),\n('build',['python','-m','build']),\n('dependency-audit',['python','-m','pip_audit','-r','requirements-lock.txt'])]\nresults=[]\nfor name,args in commands:\n p=subprocess.run(args,capture_output=True,text=True)\n print('GATE',name,'EXIT',p.returncode,flush=True)\n print(p.stdout,flush=True);print(p.stderr,flush=True)\n results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-8000:]})\n if name=='install' and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'python':subprocess.check_output(['python','--version'],text=True).strip(),'results':results,'all_passed':len(results)==6 and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2))\nassert payload['all_passed'],json.dumps(payload)\nPY_GATES",
+          "env": {
+            "EVIDENCE_PATH": "${{ runner.temp }}/forge-pdf-integration.json"
+          }
         },
         {
           "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
           "if": "always()",
           "with": {
             "name": "pdf-integration-ca9c053e54b0-${{ matrix.python }}",
-            "path": "${{ env.EVIDENCE_PATH }}",
+            "path": "${{ runner.temp }}/forge-pdf-integration.json",
             "if-no-files-found": "error",
             "retention-days": 1
           }
