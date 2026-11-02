@@ -1,25 +1,946 @@
-name: Release build
-on:
-  push:
-    tags: ['v*']
-  workflow_dispatch:
-permissions:
-  contents: read
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
-      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
-        with:
-          php-version: '8.3'
-          extensions: pdo_sqlite, mbstring, iconv, curl, dom, xml, fileinfo, gd
-          coverage: none
-      - run: php install.php
-      - run: python tests/smoke.py
-      - run: python tools/package.py
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
-        with:
-          name: release
-          path: dist/*
-          if-no-files-found: error
+{
+  "name": "Nonpublishing maintenance action fixtures",
+  "on": {
+    "workflow_dispatch": {}
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "jobs": {
+    "ai_placeholder_detector": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/ai-placeholder-detector",
+            "ref": "87ab786c1473ec9f2da24e3b9586f0ee2e503aa2",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = 87ab786c1473ec9f2da24e3b9586f0ee2e503aa2"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.14"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.0'\nexport GITHUB_REF_TYPE=tag\npython -m pip install . pytest build"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.0'\nexport GITHUB_REF_TYPE=tag\npython -m pytest"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.0'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-ai-placeholder-detector-release-artifacts",
+            "path": "dist/*.whl\ndist/*.tar.gz\n",
+            "if-no-files-found": "error",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-ai-placeholder-detector-release-artifacts",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "blink": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "with": {
+            "repository": "loganpendragonmultiverse/blink",
+            "ref": "0583b5b6d474a27cb351e0152b69e84590cec1e2",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = 0583b5b6d474a27cb351e0152b69e84590cec1e2"
+        },
+        {
+          "uses": "shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+          "with": {
+            "php-version": "8.3",
+            "extensions": "pdo_sqlite, mbstring, iconv, curl, dom, xml, fileinfo, gd",
+            "coverage": "none"
+          },
+          "name": "Exercise shivammathur/setup-php at reviewed commit"
+        },
+        {
+          "run": "php install.php"
+        },
+        {
+          "run": "python tests/smoke.py"
+        },
+        {
+          "run": "python tools/package.py"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-blink-release",
+            "path": "dist/*",
+            "if-no-files-found": "error",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-blink-release",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "cbz_page_auditor": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/cbz-page-auditor",
+            "ref": "7a27f0ecd8482e9689dcc229b741c015c266b6ab",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = 7a27f0ecd8482e9689dcc229b741c015c266b6ab"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.12"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "name": "Verify tag and package identity",
+          "run": "export GITHUB_REF_NAME='v2.0.0'\nexport GITHUB_REF_TYPE=tag\npython - <<'PY'\nimport ast, os, re, tomllib\nfrom pathlib import Path\nproject = tomllib.loads(Path(\"pyproject.toml\").read_text())[\"project\"]\ntag = os.environ[\"GITHUB_REF_NAME\"]\nassert re.fullmatch(r\"v[0-9]+\\.[0-9]+\\.[0-9]+\", tag)\nassert project[\"name\"] == \"cbz-page-auditor\"\nassert tag == \"v\" + project[\"version\"]\nmodule = ast.parse(Path(\"src/cbz_auditor/__init__.py\").read_text())\nversions = [ast.literal_eval(node.value) for node in module.body if isinstance(node, ast.Assign) and any(isinstance(target, ast.Name) and target.id == \"__version__\" for target in node.targets)]\nassert versions == [project[\"version\"]]\nPY\n"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v2.0.0'\nexport GITHUB_REF_TYPE=tag\npython -m pip install -e \".[dev]\""
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v2.0.0'\nexport GITHUB_REF_TYPE=tag\npython -m ruff format --check ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v2.0.0'\nexport GITHUB_REF_TYPE=tag\npython -m ruff check ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v2.0.0'\nexport GITHUB_REF_TYPE=tag\npython -m mypy src"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v2.0.0'\nexport GITHUB_REF_TYPE=tag\npython -m pytest --cov=cbz_auditor --cov-branch --cov-report=term-missing"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v2.0.0'\nexport GITHUB_REF_TYPE=tag\npython -m pip_audit --progress-spinner off"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v2.0.0'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "name": "Verify built identities and write exact checksums",
+          "run": "export GITHUB_REF_NAME='v2.0.0'\nexport GITHUB_REF_TYPE=tag\npython - <<'PY'\nimport hashlib, os, re, tarfile, tomllib, zipfile\nfrom email.parser import BytesParser\nfrom pathlib import Path\nproject = tomllib.loads(Path(\"pyproject.toml\").read_text())[\"project\"]\nversion = project[\"version\"]\nassert os.environ[\"GITHUB_REF_NAME\"] == \"v\" + version\nstem = re.sub(r\"[-_.]+\", \"_\", project[\"name\"])\nwheel = Path(\"dist\") / (stem + \"-\" + version + \"-py3-none-any.whl\")\nsdist = Path(\"dist\") / (stem + \"-\" + version + \".tar.gz\")\nassert set(Path(\"dist\").iterdir()) == {wheel, sdist}\nwith zipfile.ZipFile(wheel) as package:\n    metadata = [name for name in package.namelist() if name.endswith(\".dist-info/METADATA\")]\n    assert len(metadata) == 1\n    wheel_info = BytesParser().parsebytes(package.read(metadata[0]))\nwith tarfile.open(sdist) as package:\n    member = package.extractfile(stem + \"-\" + version + \"/PKG-INFO\")\n    assert member is not None\n    sdist_info = BytesParser().parsebytes(member.read())\nfor info in [wheel_info, sdist_info]:\n    assert info[\"Name\"] == project[\"name\"] and info[\"Version\"] == version\n    assert info[\"Requires-Python\"] == project[\"requires-python\"]\npayloads = sorted([wheel, sdist])\nPath(\"dist/SHA256SUMS\").write_text(\"\".join(hashlib.sha256(path.read_bytes()).hexdigest() + \"  \" + path.name + \"\\n\" for path in payloads))\nPY\n"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-cbz-page-auditor-release-artifacts",
+            "path": "dist/*",
+            "if-no-files-found": "error",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-cbz-page-auditor-release-artifacts",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "comic_reading_session_logger": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/comic-reading-session-logger",
+            "ref": "7c8feda6667b99d622cadad55ae7532b96b19123",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = 7c8feda6667b99d622cadad55ae7532b96b19123"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.12"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.1'\nexport GITHUB_REF_TYPE=tag\npython -m pip install build"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.1'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-comic-reading-session-logger-release-artifacts",
+            "path": "dist/*.whl\ndist/*.tar.gz\n",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-comic-reading-session-logger-release-artifacts",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "context_packing_previewer": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/context-packing-previewer",
+            "ref": "50063a7afad027f19c88612caabf9ca1002246d2",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = 50063a7afad027f19c88612caabf9ca1002246d2"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.12"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.0.2'\nexport GITHUB_REF_TYPE=tag\npython -m pip install build"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.0.2'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-context-packing-previewer-release-artifacts",
+            "path": "dist/*.whl\ndist/*.tar.gz\n",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-context-packing-previewer-release-artifacts",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "file_extension_truth_checker": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/file-extension-truth-checker",
+            "ref": "3c3f4193272b907a80391b9b59082ede5a513682",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = 3c3f4193272b907a80391b9b59082ede5a513682"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.13"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.1'\nexport GITHUB_REF_TYPE=tag\npython -m pip install build pytest"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.1'\nexport GITHUB_REF_TYPE=tag\npython -m pip install -e ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.1'\nexport GITHUB_REF_TYPE=tag\npython -m pytest"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.1'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-file-extension-truth-checker-release-artifacts",
+            "path": "dist/*.whl\ndist/*.tar.gz\n",
+            "if-no-files-found": "error",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-file-extension-truth-checker-release-artifacts",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "folder_manifest_postcard": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/folder-manifest-postcard",
+            "ref": "a5d8b889f970e72331c6cd5f3e45961508be61f2",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = a5d8b889f970e72331c6cd5f3e45961508be61f2"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.12"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.1'\nexport GITHUB_REF_TYPE=tag\npython -m pip install build"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.1'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-folder-manifest-postcard-release-artifacts",
+            "path": "dist/*.whl\ndist/*.tar.gz\n",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-folder-manifest-postcard-release-artifacts",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "linkwitness": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/linkwitness",
+            "ref": "5a2ace31a03aa42bcf8c6481cc010a429c7e831a",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = 5a2ace31a03aa42bcf8c6481cc010a429c7e831a"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.12"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "name": "Verify tag and package identity",
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython - <<'PY'\nimport ast, os, re, tomllib\nfrom pathlib import Path\nproject = tomllib.loads(Path(\"pyproject.toml\").read_text())[\"project\"]\ntag = os.environ[\"GITHUB_REF_NAME\"]\nassert re.fullmatch(r\"v[0-9]+\\.[0-9]+\\.[0-9]+\", tag)\nassert project[\"name\"] == \"linkwitness\"\nassert tag == \"v\" + project[\"version\"]\nmodule = ast.parse(Path(\"src/linkwitness/__init__.py\").read_text())\nversions = [ast.literal_eval(node.value) for node in module.body if isinstance(node, ast.Assign) and any(isinstance(target, ast.Name) and target.id == \"__version__\" for target in node.targets)]\nassert versions == [project[\"version\"]]\nPY\n"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython -m pip install -e \".[dev]\""
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython -m ruff format --check ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython -m ruff check ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython -m mypy src"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython -m pytest"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython -m pip_audit --progress-spinner off"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "name": "Verify built identities and write exact checksums",
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython - <<'PY'\nimport hashlib, os, re, tarfile, tomllib, zipfile\nfrom email.parser import BytesParser\nfrom pathlib import Path\nproject = tomllib.loads(Path(\"pyproject.toml\").read_text())[\"project\"]\nversion = project[\"version\"]\nassert os.environ[\"GITHUB_REF_NAME\"] == \"v\" + version\nstem = re.sub(r\"[-_.]+\", \"_\", project[\"name\"])\nwheel = Path(\"dist\") / (stem + \"-\" + version + \"-py3-none-any.whl\")\nsdist = Path(\"dist\") / (stem + \"-\" + version + \".tar.gz\")\nassert set(Path(\"dist\").iterdir()) == {wheel, sdist}\nwith zipfile.ZipFile(wheel) as package:\n    metadata = [name for name in package.namelist() if name.endswith(\".dist-info/METADATA\")]\n    assert len(metadata) == 1\n    wheel_info = BytesParser().parsebytes(package.read(metadata[0]))\nwith tarfile.open(sdist) as package:\n    member = package.extractfile(stem + \"-\" + version + \"/PKG-INFO\")\n    assert member is not None\n    sdist_info = BytesParser().parsebytes(member.read())\nfor info in [wheel_info, sdist_info]:\n    assert info[\"Name\"] == project[\"name\"] and info[\"Version\"] == version\n    assert info[\"Requires-Python\"] == project[\"requires-python\"]\npayloads = sorted([wheel, sdist])\nPath(\"dist/SHA256SUMS\").write_text(\"\".join(hashlib.sha256(path.read_bytes()).hexdigest() + \"  \" + path.name + \"\\n\" for path in payloads))\nPY\n"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-linkwitness-release-artifacts",
+            "path": "dist/*",
+            "if-no-files-found": "error",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-linkwitness-release-artifacts",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "project_continuity_kit": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/project-continuity-kit",
+            "ref": "8ab130c7fabb062e16f49e51690adc9b161638e0",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = 8ab130c7fabb062e16f49e51690adc9b161638e0"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.12"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.4.2'\nexport GITHUB_REF_TYPE=tag\npython -m pip install -e \".[dev]\" \"pip-audit>=2.9,<3\""
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.4.2'\nexport GITHUB_REF_TYPE=tag\nruff format --check ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.4.2'\nexport GITHUB_REF_TYPE=tag\nruff check ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.4.2'\nexport GITHUB_REF_TYPE=tag\nmypy src"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.4.2'\nexport GITHUB_REF_TYPE=tag\npython -m pytest"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.4.2'\nexport GITHUB_REF_TYPE=tag\npython -m pip_audit ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.4.2'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.4.2'\nexport GITHUB_REF_TYPE=tag\npython tools/release_package.py"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-project-continuity-kit-release-artifacts",
+            "path": "dist/*.whl\ndist/*.tar.gz\ndist/SHA256SUMS\n",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-project-continuity-kit-release-artifacts",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "repository_release_readiness_checker": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/repository-release-readiness-checker",
+            "ref": "caaec7bb0be41ba3e56052bff0fd1eb0885c1e33",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = caaec7bb0be41ba3e56052bff0fd1eb0885c1e33"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.13"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.0'\nexport GITHUB_REF_TYPE=tag\npython -m pip install -e . pytest build"
+        },
+        {
+          "name": "Verify version tag",
+          "env": {
+            "RELEASE_TAG": "v1.2.0"
+          },
+          "run": "export GITHUB_REF_NAME='v1.2.0'\nexport GITHUB_REF_TYPE=tag\npython - <<'PY'\nimport importlib.metadata, os\nfrom release_ready import __version__\nexpected = os.environ[\"RELEASE_TAG\"].removeprefix(\"v\")\nassert importlib.metadata.version(\"repository-release-readiness-checker\") == expected\nassert __version__ == expected\nPY\n"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.0'\nexport GITHUB_REF_TYPE=tag\npython -m pytest"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.0'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.0'\nexport GITHUB_REF_TYPE=tag\ncd dist && sha256sum *.whl *.tar.gz > SHA256SUMS"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-repository-release-readiness-checker-release-distributions",
+            "path": "dist/",
+            "if-no-files-found": "error",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-repository-release-readiness-checker-release-distributions",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "safe_bulk_rename_planner": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/safe-bulk-rename-planner",
+            "ref": "78148652ed943d5b252190c78961a5eb9357fa4a",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = 78148652ed943d5b252190c78961a5eb9357fa4a"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.12"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.3'\nexport GITHUB_REF_TYPE=tag\npython -m pip install -e \".[dev]\""
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.3'\nexport GITHUB_REF_TYPE=tag\nruff format --check ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.3'\nexport GITHUB_REF_TYPE=tag\nruff check ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.3'\nexport GITHUB_REF_TYPE=tag\nmypy src"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.3'\nexport GITHUB_REF_TYPE=tag\npython -m pytest"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.3'\nexport GITHUB_REF_TYPE=tag\npython -m pip_audit ."
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.3'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.1.3'\nexport GITHUB_REF_TYPE=tag\npython tools/release_package.py"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-safe-bulk-rename-planner-release-artifacts",
+            "path": "dist/*.whl\ndist/*.tar.gz\ndist/SHA256SUMS\n",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-safe-bulk-rename-planner-release-artifacts",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    },
+    "scopetrace": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "name": "Assert fixture-only event and branch",
+          "run": "test \"$GITHUB_EVENT_NAME\" = workflow_dispatch\ntest \"$GITHUB_REF\" = refs/heads/audit/nonpublishing-action-fixtures-20261102"
+        },
+        {
+          "uses": "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "with": {
+            "repository": "loganpendragonmultiverse/scopetrace",
+            "ref": "6dccad0be57afc845a661057f88172ade4055741",
+            "persist-credentials": false
+          }
+        },
+        {
+          "name": "Verify exact candidate checkout",
+          "run": "test \"$(git rev-parse HEAD)\" = 6dccad0be57afc845a661057f88172ade4055741"
+        },
+        {
+          "uses": "actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+          "with": {
+            "python-version": "3.12"
+          },
+          "name": "Exercise actions/setup-python at reviewed commit"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython -m pip install build"
+        },
+        {
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython -m build"
+        },
+        {
+          "name": "Verify tag version and write distribution checksums",
+          "run": "export GITHUB_REF_NAME='v1.2.1'\nexport GITHUB_REF_TYPE=tag\npython - <<'PY_CHECKSUM'\nimport hashlib\nimport os\nfrom pathlib import Path\nimport tomllib\n\nproject = tomllib.loads(Path(\"pyproject.toml\").read_text(encoding=\"utf-8\"))[\"project\"]\nversion = project[\"version\"]\nif os.environ[\"GITHUB_REF_NAME\"] != \"v\" + version:\n    raise SystemExit(\"Release tag must match the package version\")\nname = project[\"name\"].replace(\"-\", \"_\")\nexpected = {f\"{name}-{version}-py3-none-any.whl\", f\"{name}-{version}.tar.gz\"}\npayloads = sorted([*Path(\"dist\").glob(\"*.whl\"), *Path(\"dist\").glob(\"*.tar.gz\")])\nif {path.name for path in payloads} != expected or len(payloads) != 2:\n    raise SystemExit(\"Release requires exactly the expected wheel and source distribution\")\ncontent = \"\".join(f\"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.name}\\n\" for path in payloads)\nPath(\"dist/SHA256SUMS\").write_text(content, encoding=\"utf-8\")\nPY_CHECKSUM\n"
+        },
+        {
+          "name": "Fingerprint source-only build payloads",
+          "run": "python - <<'PY_EXPECT'\nimport pathlib,hashlib,json\ndist=pathlib.Path('dist')\nfiles=sorted(p for p in dist.rglob('*') if p.is_file())\nassert files and sum(p.stat().st_size for p in files)<64*1024*1024\nassert all(not p.is_symlink() for p in files)\nexpected={p.relative_to(dist).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}\npathlib.Path('.fixture-expected.json').write_text(json.dumps(expected,sort_keys=True))\nprint(json.dumps(expected,sort_keys=True))\nPY_EXPECT"
+        },
+        {
+          "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "with": {
+            "name": "fixture-scopetrace-release-artifacts",
+            "path": "dist/*.whl\ndist/*.tar.gz\ndist/SHA256SUMS\n",
+            "retention-days": 1
+          },
+          "id": "upload",
+          "name": "Exercise actions/upload-artifact at reviewed commit"
+        },
+        {
+          "name": "Download this run\u2019s temporary artifact",
+          "uses": "actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333",
+          "with": {
+            "name": "fixture-scopetrace-release-artifacts",
+            "path": ".fixture-downloaded"
+          }
+        },
+        {
+          "name": "Verify downloaded payload bytes",
+          "run": "python - <<'PY_VERIFY'\nimport pathlib,hashlib,json,os\nexpected=json.loads(pathlib.Path('.fixture-expected.json').read_text())\nroot=pathlib.Path('.fixture-downloaded')\nactual={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}\nassert actual==expected,(actual,expected)\nprint(json.dumps({'passed':True,'files':actual,'artifact_id':os.environ['ARTIFACT_ID'],'artifact_digest':os.environ['ARTIFACT_DIGEST']},sort_keys=True))\nPY_VERIFY",
+          "env": {
+            "ARTIFACT_ID": "${{ steps.upload.outputs.artifact-id }}",
+            "ARTIFACT_DIGEST": "${{ steps.upload.outputs.artifact-digest }}"
+          }
+        }
+      ],
+      "timeout-minutes": 25,
+      "permissions": {
+        "contents": "read"
+      }
+    }
+  }
+}
