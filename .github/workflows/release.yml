@@ -180,134 +180,6 @@
               "caseKey": "luminary-chat-b5ec20f6c1bf-windows-latest-8.3"
             },
             {
-              "repository": "loganpendragonmultiverse/marketing-bidding-central",
-              "slug": "marketing-bidding-central",
-              "runtimeGroup": "ffe29190c86815eac5cc4b6bdd37bcad5988fca7d5994015fdfc9503cf13a94f",
-              "sourceCases": [
-                2
-              ],
-              "head": "9aef96d426f3dd8ad481beba1ace0f27cdad99e0",
-              "tree": "a3018fd2b4435cce234ccdb5661c3717185ddf35",
-              "patchFile": "marketing-bidding-central-ffe29190c868.patch",
-              "patchSha256": "cc212a7cfd526a01f8900e671f9d403eb83f230b2f77629ae4086199e3c3cc4b",
-              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
-              "os": "ubuntu-latest",
-              "php": "8.3",
-              "caseKey": "marketing-bidding-central-ffe29190c868-ubuntu-latest-8.3"
-            },
-            {
-              "repository": "loganpendragonmultiverse/marketing-bidding-central",
-              "slug": "marketing-bidding-central",
-              "runtimeGroup": "ffe29190c86815eac5cc4b6bdd37bcad5988fca7d5994015fdfc9503cf13a94f",
-              "sourceCases": [
-                2
-              ],
-              "head": "9aef96d426f3dd8ad481beba1ace0f27cdad99e0",
-              "tree": "a3018fd2b4435cce234ccdb5661c3717185ddf35",
-              "patchFile": "marketing-bidding-central-ffe29190c868.patch",
-              "patchSha256": "cc212a7cfd526a01f8900e671f9d403eb83f230b2f77629ae4086199e3c3cc4b",
-              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
-              "os": "ubuntu-latest",
-              "php": "8.4",
-              "caseKey": "marketing-bidding-central-ffe29190c868-ubuntu-latest-8.4"
-            },
-            {
-              "repository": "loganpendragonmultiverse/marketing-bidding-central",
-              "slug": "marketing-bidding-central",
-              "runtimeGroup": "a4e6caa57db657df25f989141fec0f1c86273d52462541687419b80fa939a5e7",
-              "sourceCases": [
-                3
-              ],
-              "head": "4c9da32fe05eb4560d47807c70f129d66c242830",
-              "tree": "183cdde8e67a800332fd03bd7b28075f79c9f1e3",
-              "patchFile": "marketing-bidding-central-a4e6caa57db6.patch",
-              "patchSha256": "8fd753731579ce1111d618bf002c3b73b28421dddeba263123d0689bb400ffb7",
-              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
-              "os": "ubuntu-latest",
-              "php": "8.3",
-              "caseKey": "marketing-bidding-central-a4e6caa57db6-ubuntu-latest-8.3"
-            },
-            {
-              "repository": "loganpendragonmultiverse/marketing-bidding-central",
-              "slug": "marketing-bidding-central",
-              "runtimeGroup": "a4e6caa57db657df25f989141fec0f1c86273d52462541687419b80fa939a5e7",
-              "sourceCases": [
-                3
-              ],
-              "head": "4c9da32fe05eb4560d47807c70f129d66c242830",
-              "tree": "183cdde8e67a800332fd03bd7b28075f79c9f1e3",
-              "patchFile": "marketing-bidding-central-a4e6caa57db6.patch",
-              "patchSha256": "8fd753731579ce1111d618bf002c3b73b28421dddeba263123d0689bb400ffb7",
-              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
-              "os": "ubuntu-latest",
-              "php": "8.4",
-              "caseKey": "marketing-bidding-central-a4e6caa57db6-ubuntu-latest-8.4"
-            },
-            {
-              "repository": "loganpendragonmultiverse/marketing-bidding-central",
-              "slug": "marketing-bidding-central",
-              "runtimeGroup": "e851966924150edcdbbe437378723e02fb1b25d255b29bbed738df5e1aa204be",
-              "sourceCases": [
-                8
-              ],
-              "head": "474faa050d07af0447ff10c18ca733631cd9166a",
-              "tree": "942b663edcb463df1bed2b4c51cb08feb0f01035",
-              "patchFile": "marketing-bidding-central-e85196692415.patch",
-              "patchSha256": "bcbfad02dbebf2a76fad779eeaba0f1902f47132d6677dda1b232ef94f2391a5",
-              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
-              "os": "ubuntu-latest",
-              "php": "8.3",
-              "caseKey": "marketing-bidding-central-e85196692415-ubuntu-latest-8.3"
-            },
-            {
-              "repository": "loganpendragonmultiverse/marketing-bidding-central",
-              "slug": "marketing-bidding-central",
-              "runtimeGroup": "e851966924150edcdbbe437378723e02fb1b25d255b29bbed738df5e1aa204be",
-              "sourceCases": [
-                8
-              ],
-              "head": "474faa050d07af0447ff10c18ca733631cd9166a",
-              "tree": "942b663edcb463df1bed2b4c51cb08feb0f01035",
-              "patchFile": "marketing-bidding-central-e85196692415.patch",
-              "patchSha256": "bcbfad02dbebf2a76fad779eeaba0f1902f47132d6677dda1b232ef94f2391a5",
-              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
-              "os": "ubuntu-latest",
-              "php": "8.4",
-              "caseKey": "marketing-bidding-central-e85196692415-ubuntu-latest-8.4"
-            },
-            {
-              "repository": "loganpendragonmultiverse/marketing-bidding-central",
-              "slug": "marketing-bidding-central",
-              "runtimeGroup": "dc2e59d2dd8c2d693a4a443399b75c1ae030362726363e86391563c149ca3de8",
-              "sourceCases": [
-                9
-              ],
-              "head": "872ec8dec62fcbe4695f80846a68bdaa9548b9d8",
-              "tree": "df8e4c35e313f45f0f9f5126c1e065c6039169d8",
-              "patchFile": "marketing-bidding-central-dc2e59d2dd8c.patch",
-              "patchSha256": "ee55d12c67e92659a75a544e5523dd358647c7773853f834ddf09acd34012b01",
-              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
-              "os": "ubuntu-latest",
-              "php": "8.3",
-              "caseKey": "marketing-bidding-central-dc2e59d2dd8c-ubuntu-latest-8.3"
-            },
-            {
-              "repository": "loganpendragonmultiverse/marketing-bidding-central",
-              "slug": "marketing-bidding-central",
-              "runtimeGroup": "dc2e59d2dd8c2d693a4a443399b75c1ae030362726363e86391563c149ca3de8",
-              "sourceCases": [
-                9
-              ],
-              "head": "872ec8dec62fcbe4695f80846a68bdaa9548b9d8",
-              "tree": "df8e4c35e313f45f0f9f5126c1e065c6039169d8",
-              "patchFile": "marketing-bidding-central-dc2e59d2dd8c.patch",
-              "patchSha256": "ee55d12c67e92659a75a544e5523dd358647c7773853f834ddf09acd34012b01",
-              "policy": "{\"php\":\"^8.3\",\"platform\":{\"php\":\"8.3.33\"}}",
-              "os": "ubuntu-latest",
-              "php": "8.4",
-              "caseKey": "marketing-bidding-central-dc2e59d2dd8c-ubuntu-latest-8.4"
-            },
-            {
               "repository": "loganpendragonmultiverse/snap-finder",
               "slug": "snap-finder",
               "runtimeGroup": "26d9c9eded5391583ededddcfdc5ecba084bb226cb3632e03fc0e22d3137fd93",
@@ -572,9 +444,10 @@
         {
           "name": "Run synthetic supported-runtime integration gates",
           "env": {
-            "EVIDENCE_PATH": "${{ runner.temp }}/php-integration.json"
+            "EVIDENCE_PATH": "${{ runner.temp }}/php-integration.json",
+            "PYTHONIOENCODING": "utf-8"
           },
-          "run": "python - <<'PY_GATES'\nimport os,subprocess,pathlib,json,shutil\nfor n in ['storage/app/private','storage/app/public','storage/framework/cache/data','storage/framework/sessions','storage/framework/views','storage/logs','bootstrap/cache']:pathlib.Path(n).mkdir(parents=True,exist_ok=True)\nshutil.copyfile('.env.example','.env')\nif os.environ['SOURCE_SLUG']=='marketing-bidding-central':\n commands=[('composer-install','composer install --no-interaction --prefer-dist --no-progress'),('validate','composer validate --strict --no-check-version'),('lint','php vendor/bin/pint --test'),('full-php-tests','php artisan test --no-ansi'),('dependency-audit','composer audit --locked'),('source-readiness','python scripts/audit-release.py'),('source-package','python scripts/package-release.py')]\nelse:commands=[('fresh-install','php install.php'),('full-php-tests','php artisan test --no-ansi'),('composer-audit','composer audit --locked'),('npm-audit','npm audit')]\nresults=[]\nfor name,cmd in commands:\n p=subprocess.run(cmd,shell=True,capture_output=True,text=True,encoding='utf-8',errors='replace');print('GATE',name,'EXIT',p.returncode,flush=True);print(p.stdout,flush=True);print(p.stderr,flush=True);results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-7000:]})\n if name in ['composer-install','fresh-install'] and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'php':subprocess.check_output('php --version',shell=True,text=True).splitlines()[0],'results':results,'all_passed':len(results)==len(commands) and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2));assert payload['all_passed'],json.dumps(payload)\nPY_GATES"
+          "run": "python - <<'PY_GATES'\nimport os,subprocess,pathlib,json,shutil\nfor n in ['storage/app/private','storage/app/public','storage/framework/cache/data','storage/framework/sessions','storage/framework/views','storage/logs','bootstrap/cache']:pathlib.Path(n).mkdir(parents=True,exist_ok=True)\nif os.environ['SOURCE_SLUG']=='marketing-bidding-central':\n shutil.copyfile('.env.example','.env')\n commands=[('composer-install','composer install --no-interaction --prefer-dist --no-progress'),('validate','composer validate --strict --no-check-version'),('lint','php vendor/bin/pint --test'),('full-php-tests','php artisan test --no-ansi'),('dependency-audit','composer audit --locked'),('source-readiness','python scripts/audit-release.py'),('source-package','python scripts/package-release.py')]\nelse:commands=[('fresh-install','php install.php'),('full-php-tests','php artisan test --no-ansi'),('composer-audit','composer audit --locked'),('npm-audit','npm audit')]\nresults=[]\nfor name,cmd in commands:\n p=subprocess.run(cmd,shell=True,capture_output=True,text=True,encoding='utf-8',errors='replace');print('GATE',name,'EXIT',p.returncode,flush=True);print(p.stdout,flush=True);print(p.stderr,flush=True);results.append({'gate':name,'exit':p.returncode,'tail':(p.stdout+p.stderr)[-7000:]})\n if name in ['composer-install','fresh-install'] and p.returncode:break\npayload={'tree':os.environ['EXPECTED_TREE'],'source_head':os.environ['SOURCE_HEAD'],'runtime_group':os.environ['RUNTIME_GROUP'],'php':subprocess.check_output('php --version',shell=True,text=True).splitlines()[0],'results':results,'all_passed':len(results)==len(commands) and all(x['exit']==0 for x in results)}\npathlib.Path(os.environ['EVIDENCE_PATH']).write_text(json.dumps(payload,indent=2));assert payload['all_passed'],json.dumps(payload)\nPY_GATES"
         },
         {
           "uses": "actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
