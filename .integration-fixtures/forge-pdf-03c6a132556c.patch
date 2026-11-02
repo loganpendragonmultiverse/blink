@@ -1,0 +1,26 @@
+diff --git a/.github/workflows/codeql.yml b/.github/workflows/codeql.yml
+index 9ff4652..daf4d9f 100644
+--- a/.github/workflows/codeql.yml
++++ b/.github/workflows/codeql.yml
+@@ -10,7 +10,7 @@ jobs:
+       security-events: write
+     steps:
+       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+-      - uses: github/codeql-action/init@c20e34f438d671fc35777cc9820dd7adf8252874
++      - uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
+         with:
+           languages: python
+-      - uses: github/codeql-action/analyze@c20e34f438d671fc35777cc9820dd7adf8252874
++      - uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
+diff --git a/requirements-lock.txt b/requirements-lock.txt
+index 293f4d0..a4ace48 100644
+--- a/requirements-lock.txt
++++ b/requirements-lock.txt
+@@ -1,6 +1,6 @@
+ charset-normalizer==3.5.1
+ pillow==13.0.0
+-pypdf==6.21.2
++pypdf==6.21.4
+ pypdfium2==5.13.0
+ reportlab==5.0.1
+ cryptography==50.0.1
